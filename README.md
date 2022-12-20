@@ -13,4 +13,7 @@
 >   - when bad user insert bad data
 >   - because of the progamer's comfortable
 >   - Unintended results when storing data in DB
+> - BindingResult
+>   - FieldErrors
+> - jsonPath    
 
