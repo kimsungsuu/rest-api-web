@@ -2,8 +2,13 @@ package com.sungsu.controller;
 
 import com.sungsu.request.PostCreate;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -11,9 +16,19 @@ import java.util.Map;
 public class PostController {
 
     @PostMapping("/posts")
-    public String post(@RequestBody PostCreate params) {
-        log.info("params={}",params.toString());
+    public Map<String, String> post(@RequestBody @Valid PostCreate params, BindingResult result) {
+        if(result.hasErrors()) {
+            List<FieldError> fieldErrors =  result.getFieldErrors();
+            FieldError firstFieldError = fieldErrors.get(0);
+            String fieldName = firstFieldError.getField();
+            String errorMessage = firstFieldError.getDefaultMessage();
 
-        return "hello World";
+            Map<String, String> error = new HashMap<>();
+
+            error.put(fieldName, errorMessage);
+            return error;
+        }
+
+        return Map.of();
     }
 }
