@@ -1,21 +1,16 @@
-# Spring
+# rest API Web
 
-## 2022.12.18
-> - SPA(Single Page Application)
-> - Use MockMvc for Controller GetMapping test or PostMapping test
->   - We possible don't use servlet Container by using MockMvc
->   - use json type test
+## 프로젝트 제목/주제
+> - 제목 : Web site API
+> - 주제 : rest api 방식의 웹사이트 개발 및 공부
 
-## 2022.12.19
-> - data validation
->   - when client programmer hasn't push data by mistake
->   - by client bug
->   - when bad user insert bad data
->   - because of the progamer's comfortable
->   - Unintended results when storing data in DB
-> - BindingResult
->   - FieldErrors
-> - jsonPath    
-
-## 2022.12.22
-> - @Controlleradvice
+## 사용한 기술
+> - Java 11
+> - Spring boot 2.7.x
+> - Junit 5
+> - MockMVC
+> - datavalidation
+>   - @Valid
+>   - BindingResult
+>   - @ControllerAdvice
+>   - jsonpath
