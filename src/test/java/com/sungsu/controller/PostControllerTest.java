@@ -1,9 +1,13 @@
 package com.sungsu.controller;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.sungsu.domain.SpringBoard;
+import com.sungsu.repository.BoardRepository;
+import com.sungsu.service.BoardService;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -16,12 +20,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest
+@SpringBootTest
+@AutoConfigureMockMvc
 class PostControllerTest {
+
+    @Autowired
+    private BoardRepository boardRepository;
 
     @Autowired
     private MockMvc mockMvc;
 
+    @BeforeEach
+    void clean(){
+        boardRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("/posts 요청 결과 hello world")
@@ -46,4 +58,20 @@ class PostControllerTest {
               .andDo(print());
     }
 
+    @Test
+    @DisplayName("/posts 결과가 DB에 저장되는지 확인")
+    void test3() throws Exception{
+        mockMvc.perform(post("/posts")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"title\" : \"제목입니다.\", \"content\" : \"내용입니다.\"}"))
+                .andExpect(status().isOk())
+                .andDo(print());
+
+        assertEquals(1L,boardRepository.count());
+
+        SpringBoard board = boardRepository.findAll().get(0);
+
+        assertEquals("제목입니다.",board.getTitle());
+        assertEquals("내용입니다.",board.getContent());
+    }
 }

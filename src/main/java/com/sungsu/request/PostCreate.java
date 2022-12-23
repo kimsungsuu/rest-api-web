@@ -11,9 +11,13 @@ import javax.validation.constraints.NotBlank;
 @ToString
 public class PostCreate {
 
+
+    private Integer id;
+
     @NotBlank(message = "타이틀을 입력해주세요")
     private String title;
 
     @NotBlank(message = "컨텐츠를 입력해주세요")
     private String content;
+
 }
