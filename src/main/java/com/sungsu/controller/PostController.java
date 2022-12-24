@@ -1,5 +1,6 @@
 package com.sungsu.controller;
 
+import com.sungsu.domain.SpringBoard;
 import com.sungsu.request.PostCreate;
 import com.sungsu.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * request Dto와 entity class의 차이점
+ * 1. request Dto인 PostController는 client의 요청 데이터를 관리하고
+ * 2. entity 클래스는 DB에 데이터를 최종적으로 저장하거나, DB에 있는 데이터를 가져오는 역할을 한다.
+ * 3. Dto 클래스는 주로 요청을 처리하기 때문에 Controller에서 주로 쓰인다.
+ * 4. entity 클래스는 DB의 데이터를 다루기 떄문에 Service 클래스에서 주로 쓰인다.
+ */
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +33,17 @@ public class PostController {
     public Map<String, String> post(@RequestBody @Valid PostCreate request) {
 
         boardService.write(request);
+
+        return Map.of();
+    }
+
+    @PostMapping("/update")
+    public Map<String, String> update(@RequestBody PostCreate request){
+        PostCreate boardTmp = new PostCreate();
+        boardTmp.setTitle(request.getTitle());
+        boardTmp.setContent(request.getContent());
+
+        boardService.write(boardTmp);
 
         return Map.of();
     }
