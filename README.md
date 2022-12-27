@@ -29,7 +29,7 @@
 </br>
 
 ## 4. 트러블 슈팅/ 문제 개선
-> - BindingResult 클래스를 사용한 에러처리 시 반복 작업 가능성 우려
+> - BindingResult 클래스를 사용한 에러 처리 시 반복 작업 가능성 우려
 >   - @ControllerAdvice 어노테이션을 사용하여 해당 필드 에러 처리 자동화
 >   - [코드확인](https://github.com/ksungsu/rest-api-web/blob/ea8399d1dc17394b6ec28c1483d7e434a5db43a2/src/main/java/com/sungsu/controller/ExceptionController.java#L16)
 
