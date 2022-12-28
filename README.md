@@ -44,5 +44,5 @@
 >   - entity : DB와 데이터를 교환하는 필드, 주로 service 계층에서 사용
 >   - dto : Controller에서 http 요청 데이터를 처리할 때 사용
 > - @Valid와 @ControllerAdvice를 사용한 에러 처리 구현
->   - BindingResult
+>   - BindingResult 객체를 이용한 반복적인 에어 정보 처리를 자동화합니다.
 
