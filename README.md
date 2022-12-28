@@ -43,6 +43,9 @@
 > - entity와 dto(사용자 요청에 응답하는 데이터 필드)의 분리
 >   - entity : DB와 데이터를 교환하는 필드, 주로 service 계층에서 사용
 >   - dto : Controller에서 http 요청 데이터를 처리할 때 사용
-> - @Valid와 @ControllerAdvice를 사용한 에러 처리 구현
+> - @ExceptionHandler와 @ControllerAdvice를 사용한 에러 처리 구현
 >   - BindingResult 객체를 이용한 반복적인 에어 정보 처리를 자동화합니다.
+>   - response 클래스를 만들어 code, message 필드와 validation 컬렉션 객체를 생성하고 클라이언트에 데이터가 넘어가도록 설정하고, Test 코드를 수정합니다.
+>
+>   
 
