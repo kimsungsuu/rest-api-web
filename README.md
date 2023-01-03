@@ -29,7 +29,7 @@
 </br>
 
 ## 4. 트러블 슈팅/ 문제 개선
-> - BindingResult 클래스를 사용한 에러처리 시 반복 작업 가능성 우려
+> - BindingResult 클래스를 사용한 에러 처리 시 반복 작업 가능성 우려
 >   - @ControllerAdvice 어노테이션을 사용하여 해당 필드 에러 처리 자동화
 >   - [코드확인](https://github.com/ksungsu/rest-api-web/blob/ea8399d1dc17394b6ec28c1483d7e434a5db43a2/src/main/java/com/sungsu/controller/ExceptionController.java#L16)
 
@@ -43,6 +43,9 @@
 > - entity와 dto(사용자 요청에 응답하는 데이터 필드)의 분리
 >   - entity : DB와 데이터를 교환하는 필드, 주로 service 계층에서 사용
 >   - dto : Controller에서 http 요청 데이터를 처리할 때 사용
-> - @Valid와 @ControllerAdvice를 사용한 에러 처리 구현
->   - BindingResult
+> - @ExceptionHandler와 @ControllerAdvice를 사용한 에러 처리 구현
+>   - BindingResult 객체를 이용한 반복적인 에어 정보 처리를 자동화합니다.
+>   - response 클래스를 만들어 code, message 필드와 validation 컬렉션 객체를 생성하고 클라이언트에 데이터가 넘어가도록 설정하고, Test 코드를 수정합니다.
+>
+>   
 
