@@ -1,6 +1,7 @@
 package com.sungsu.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,7 @@ public class SpringBoard {
     @Lob
     private String content;
 
+    @Builder
     public SpringBoard(String title, String content) {
         this.title = title;
         this.content = content;

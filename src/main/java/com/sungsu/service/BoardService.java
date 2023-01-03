@@ -11,9 +11,13 @@ import org.springframework.stereotype.Service;
 public class BoardService {
     private final BoardRepository boardRepository;
 
+
     public void write(PostCreate postCreate){
 
-        SpringBoard springBoard = new SpringBoard(postCreate.getTitle(), postCreate.getContent());
+        SpringBoard springBoard = SpringBoard.builder()
+                .title(postCreate.getTitle())
+                .content(postCreate.getContent())
+                .build();
 
         boardRepository.save(springBoard);
     }
