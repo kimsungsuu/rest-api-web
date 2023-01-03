@@ -19,7 +19,7 @@ public class BoardService {
                 .content(postCreate.getContent())
                 .build();
 
-        boardRepository.save(springBoard);
+         boardRepository.save(springBoard);
     }
 
 

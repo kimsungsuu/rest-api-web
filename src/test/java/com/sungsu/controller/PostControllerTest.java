@@ -56,7 +56,7 @@ class PostControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
                 ).andExpect(status().isOk())
-                .andExpect(content().string("{}"))
+                .andExpect(content().string(""))
                 .andDo(print());
     }
     @Test

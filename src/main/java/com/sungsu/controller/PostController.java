@@ -30,21 +30,9 @@ public class PostController {
     private final BoardService boardService;
 
     @PostMapping("/posts")
-    public Map<String, String> post(@RequestBody @Valid PostCreate request) {
+    public void post(@RequestBody @Valid PostCreate request) {
 
         boardService.write(request);
-
-        return Map.of();
     }
 
-    @PostMapping("/update")
-    public Map<String, String> update(@RequestBody PostCreate request){
-        PostCreate boardTmp = new PostCreate("제목입니다.", "내용입니다.");
-        boardTmp.setTitle(request.getTitle());
-        boardTmp.setContent(request.getContent());
-
-        boardService.write(boardTmp);
-
-        return Map.of();
-    }
 }
