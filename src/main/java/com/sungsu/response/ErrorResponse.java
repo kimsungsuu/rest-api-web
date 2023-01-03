@@ -1,5 +1,6 @@
 package com.sungsu.response;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import java.util.Map;
 
 //@RequiredArgsConstructor
 @Getter
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class ErrorResponse {
 
     private final String code;
@@ -17,11 +18,12 @@ public class ErrorResponse {
 
     private final Map<String, String> validation = new HashMap<>();
 
-//    @Autowired
-//    public ErrorResponse(String code, String message){
-//        this.code = code;
-//        this.message = message;
-//    }
+
+    @Builder
+    public ErrorResponse(String code, String message){
+        this.code = code;
+        this.message = message;
+    }
 
     public void addValidation(String fieldName, String errorMessage){
         this.validation.put(fieldName, errorMessage);

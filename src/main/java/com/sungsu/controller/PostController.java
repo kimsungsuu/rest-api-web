@@ -39,7 +39,7 @@ public class PostController {
 
     @PostMapping("/update")
     public Map<String, String> update(@RequestBody PostCreate request){
-        PostCreate boardTmp = new PostCreate();
+        PostCreate boardTmp = new PostCreate("제목입니다.", "내용입니다.");
         boardTmp.setTitle(request.getTitle());
         boardTmp.setContent(request.getContent());
 
