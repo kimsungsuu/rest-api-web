@@ -35,4 +35,10 @@ public class PostController {
         boardService.write(request);
     }
 
+    @GetMapping("/posts/{postId}")
+    public SpringBoard get(@PathVariable(name="postId") Long id){
+        SpringBoard springBoard = boardService.get(id);
+        return springBoard;
+    }
+
 }
