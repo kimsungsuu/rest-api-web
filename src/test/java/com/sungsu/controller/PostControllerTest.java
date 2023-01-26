@@ -124,6 +124,9 @@ class PostControllerTest {
         mockMvc.perform(get("/posts/{postId}", springBoard.getId())
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(springBoard.getId()))
+                .andExpect(jsonPath("$.title").value(springBoard.getTitle()))
+                .andExpect(jsonPath("$.content").value("내용"))
                 .andDo(print());
     }
 
