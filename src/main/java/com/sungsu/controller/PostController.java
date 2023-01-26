@@ -36,7 +36,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public SpringBoard get(@PathVariable(name="postId") Long id){
+    public SpringBoard get(@PathVariable(name="postId") Integer id){
         SpringBoard springBoard = boardService.get(id);
         return springBoard;
     }

@@ -22,7 +22,7 @@ public class BoardService {
          boardRepository.save(springBoard);
     }
 
-    public SpringBoard get(Long id){
+    public SpringBoard get(Integer id){
 //        SpringBoard springBoard = boardRepository.findById(id); //Optional로 반환해줘야 하기 때문에 오류 발생.
         SpringBoard springBoard = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));

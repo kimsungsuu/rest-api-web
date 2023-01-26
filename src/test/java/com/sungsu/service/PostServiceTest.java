@@ -40,4 +40,25 @@ class PostServiceTest {
         assertEquals("내용", springBoard.getContent());
     }
 
+    @Test
+    @DisplayName("글 조회")
+    void get(){
+        //given
+        SpringBoard requestBoard = SpringBoard.builder()
+                .title("제목")
+                .content("내용")
+                .build();
+
+        boardRepository.save(requestBoard);
+
+        //when
+        SpringBoard springBoard = boardService.get(requestBoard.getId());
+
+
+        //then
+        assertNotNull(springBoard);
+        assertEquals("제목", springBoard.getTitle());
+        assertEquals("내용", springBoard.getContent());
+    }
+
 }
