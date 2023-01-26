@@ -46,6 +46,7 @@
 > - @ExceptionHandler와 @ControllerAdvice를 사용한 에러 처리 구현
 >   - BindingResult 객체를 이용한 반복적인 에어 정보 처리를 자동화합니다.
 >   - response 클래스를 만들어 code, message 필드와 validation 컬렉션 객체를 생성하고 클라이언트에 데이터가 넘어가도록 설정하고, Test 코드를 수정합니다.
->
+> - 코드 리팩토링
+>   - 클라이언트와 백엔드 데이터 넘김 방식(id, 또는 전체 데이터 넘겨주기 또는 아무 데이터도 넘기지 않기)
 >   
 
