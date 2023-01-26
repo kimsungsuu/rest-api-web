@@ -17,6 +17,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.http.MediaType.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -53,7 +55,7 @@ class PostControllerTest {
 
     //when
         mockMvc.perform(post("/posts")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(APPLICATION_JSON)
                         .content(json)
                 ).andExpect(status().isOk())
                 .andExpect(content().string(""))
@@ -72,7 +74,7 @@ class PostControllerTest {
 
     //when
       mockMvc.perform(post("/posts")
-              .contentType(MediaType.APPLICATION_JSON)
+              .contentType(APPLICATION_JSON)
               .content(json)
               ).andExpect(status().isBadRequest())
               .andExpect(jsonPath("$.code").value("400"))
@@ -94,7 +96,7 @@ class PostControllerTest {
         String json = objectMapper.writeValueAsString(request);
         //when
         mockMvc.perform(post("/posts")
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(APPLICATION_JSON)
                 .content(json))
                 .andExpect(status().isOk())
                 .andDo(print());
@@ -105,6 +107,24 @@ class PostControllerTest {
 
         assertEquals("제목입니다.",board.getTitle());
         assertEquals("내용입니다.",board.getContent());
+    }
+
+    @Test
+    @DisplayName("글 1개 조회")
+    void test4() throws Exception {
+        //given
+        SpringBoard springBoard = SpringBoard.builder()
+                .title("제목")
+                .content("내용")
+                .build();
+
+        boardRepository.save(springBoard);
+
+        // expected
+        mockMvc.perform(get("/posts/{postId}", springBoard.getId())
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
 }

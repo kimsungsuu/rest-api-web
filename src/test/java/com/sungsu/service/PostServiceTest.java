@@ -5,6 +5,7 @@ import com.sungsu.domain.SpringBoard;
 import com.sungsu.repository.BoardRepository;
 import com.sungsu.request.PostCreate;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ class PostServiceTest {
     @Autowired
     private BoardRepository boardRepository;
 
+    @BeforeEach
+    void clean(){
+        boardRepository.deleteAll();
+    }
+
     @Test
     @DisplayName("글 작성")
     void save(){
@@ -34,7 +40,7 @@ class PostServiceTest {
         boardService.write(request);
 
         // then
-        assertEquals(1L, boardRepository.count());
+        assertEquals(1, boardRepository.count());
         SpringBoard springBoard = boardRepository.findAll().get(0);
         assertEquals("제목", springBoard.getTitle());
         assertEquals("내용", springBoard.getContent());
@@ -57,6 +63,7 @@ class PostServiceTest {
 
         //then
         assertNotNull(springBoard);
+        assertEquals(1, boardRepository.count());
         assertEquals("제목", springBoard.getTitle());
         assertEquals("내용", springBoard.getContent());
     }
