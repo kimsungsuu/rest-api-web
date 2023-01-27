@@ -4,6 +4,7 @@ package com.sungsu.service;
 import com.sungsu.domain.SpringBoard;
 import com.sungsu.repository.BoardRepository;
 import com.sungsu.request.PostCreate;
+import com.sungsu.response.PostResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -58,14 +59,14 @@ class PostServiceTest {
         boardRepository.save(requestBoard);
 
         //when
-        SpringBoard springBoard = boardService.get(requestBoard.getId());
+        PostResponse postResponse = boardService.get(requestBoard.getId());
 
 
         //then
-        assertNotNull(springBoard);
+        assertNotNull(postResponse);
         assertEquals(1, boardRepository.count());
-        assertEquals("제목", springBoard.getTitle());
-        assertEquals("내용", springBoard.getContent());
+        assertEquals("제목", postResponse.getTitle());
+        assertEquals("내용", postResponse.getContent());
     }
 
 }

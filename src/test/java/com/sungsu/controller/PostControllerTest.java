@@ -114,7 +114,7 @@ class PostControllerTest {
     void test4() throws Exception {
         //given
         SpringBoard springBoard = SpringBoard.builder()
-                .title("제목")
+                .title("12345")
                 .content("내용")
                 .build();
 
@@ -125,7 +125,7 @@ class PostControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(springBoard.getId()))
-                .andExpect(jsonPath("$.title").value(springBoard.getTitle()))
+                .andExpect(jsonPath("$.title").value("12345"))
                 .andExpect(jsonPath("$.content").value("내용"))
                 .andDo(print());
     }

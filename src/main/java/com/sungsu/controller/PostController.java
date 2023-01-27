@@ -2,6 +2,7 @@ package com.sungsu.controller;
 
 import com.sungsu.domain.SpringBoard;
 import com.sungsu.request.PostCreate;
+import com.sungsu.response.PostResponse;
 import com.sungsu.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,9 +37,9 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public SpringBoard get(@PathVariable(name="postId") Integer id){
-        SpringBoard springBoard = boardService.get(id);
-        return springBoard;
+    public PostResponse get(@PathVariable(name="postId") Integer id){
+        PostResponse response = boardService.get(id);
+        return response;
     }
 
 }
