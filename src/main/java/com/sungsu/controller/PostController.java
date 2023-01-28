@@ -38,8 +38,7 @@ public class PostController {
 
     @GetMapping("/posts/{postId}")
     public PostResponse get(@PathVariable(name="postId") Integer id){
-        PostResponse response = boardService.get(id);
-        return response;
+        return boardService.get(id);
     }
 
 }
