@@ -5,14 +5,16 @@ import com.sungsu.domain.SpringBoard;
 import com.sungsu.repository.BoardRepository;
 import com.sungsu.request.PostCreate;
 import com.sungsu.response.PostResponse;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class PostServiceTest {
@@ -68,5 +70,37 @@ class PostServiceTest {
         assertEquals("제목", postResponse.getTitle());
         assertEquals("내용", postResponse.getContent());
     }
+
+    @Test
+    @DisplayName("글 여려개 조회")
+    void getList(){
+        //given
+        SpringBoard requestBoard = SpringBoard.builder()
+                .title("제목")
+                .content("내용")
+                .build();
+
+        SpringBoard requestBoard1 = SpringBoard.builder()
+                .title("제목2")
+                .content("내용2")
+                .build();
+
+        SpringBoard requestBoard2 = SpringBoard.builder()
+                .title("제목3")
+                .content("내용3")
+                .build();
+
+        boardRepository.save(requestBoard);
+        boardRepository.save(requestBoard1);
+        boardRepository.save(requestBoard2);
+
+        //when
+        List<PostResponse> list = boardService.getList();
+
+
+        //then
+        assertEquals(3, list.size());
+    }
+
 
 }

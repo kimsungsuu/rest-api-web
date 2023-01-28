@@ -7,6 +7,9 @@ import com.sungsu.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
@@ -28,10 +31,19 @@ public class BoardService {
         SpringBoard springBoard = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
 
-       return PostResponse.builder()
-                .id(springBoard.getId())
-                .title(springBoard.getTitle())
-                .content(springBoard.getContent())
-                .build();
+        return new PostResponse(springBoard);
+
+//       return PostResponse.builder()
+//                .id(springBoard.getId())
+//                .title(springBoard.getTitle())
+//                .content(springBoard.getContent())
+//                .build();
+    }
+
+    public List<PostResponse> getList() {
+                return boardRepository.findAll().stream()
+                .map(springBoard -> new PostResponse(springBoard))
+                        .collect(Collectors.toList());
+
     }
 }

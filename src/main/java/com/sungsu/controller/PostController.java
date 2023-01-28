@@ -1,19 +1,14 @@
 package com.sungsu.controller;
 
-import com.sungsu.domain.SpringBoard;
 import com.sungsu.request.PostCreate;
 import com.sungsu.response.PostResponse;
 import com.sungsu.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * request Dto와 entity class의 차이점
@@ -39,6 +34,11 @@ public class PostController {
     @GetMapping("/posts/{postId}")
     public PostResponse get(@PathVariable(name="postId") Integer id){
         return boardService.get(id);
+    }
+
+    @GetMapping("/posts")
+    public List<PostResponse> getList(){
+        return boardService.getList();
     }
 
 }

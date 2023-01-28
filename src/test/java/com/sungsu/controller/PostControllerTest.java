@@ -4,23 +4,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sungsu.domain.SpringBoard;
 import com.sungsu.repository.BoardRepository;
 import com.sungsu.request.PostCreate;
-import com.sungsu.service.BoardService;
-import org.junit.jupiter.api.*;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.http.MediaType.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -128,6 +124,42 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.title").value("12345"))
                 .andExpect(jsonPath("$.content").value("내용"))
                 .andDo(print());
+    }
+
+    @Test
+    @DisplayName("글 여러개 조회")
+    void test5() throws Exception {
+        //given
+        SpringBoard springBoard = SpringBoard.builder()
+                .title("12345")
+                .content("내용")
+                .build();
+
+        SpringBoard springBoard2 = SpringBoard.builder()
+                .title("제목2")
+                .content("내용2")
+                .build();
+
+        boardRepository.save(springBoard);
+        boardRepository.save(springBoard2);
+
+        // expected
+        mockMvc.perform(get("/posts")
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()", Matchers.is(2)))
+                .andExpect(jsonPath("$[0].id").value(springBoard.getId()))
+                .andExpect(jsonPath("$[0].title").value("12345"))
+                .andExpect(jsonPath("$[0].content").value("내용"))
+                .andExpect(jsonPath("$[1].id").value(2))
+                .andExpect(jsonPath("$[1].title").value("제목2"))
+                .andExpect(jsonPath("$[1].content").value("내용2"))
+                .andDo(print());
+
+        assertEquals(2, boardRepository.findAll().size());
+        assertEquals("12345", boardRepository.findAll().get(0).getTitle());
+        assertEquals("제목2", boardRepository.findAll().get(1).getTitle());
+
     }
 
 }
