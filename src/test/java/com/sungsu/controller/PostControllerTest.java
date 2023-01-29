@@ -130,18 +130,15 @@ class PostControllerTest {
     @DisplayName("글 여러개 조회")
     void test5() throws Exception {
         //given
-        SpringBoard springBoard = SpringBoard.builder()
+        SpringBoard springBoard = boardRepository.save(SpringBoard.builder()
                 .title("12345")
                 .content("내용")
-                .build();
+                .build());
 
-        SpringBoard springBoard2 = SpringBoard.builder()
+        SpringBoard springBoard2 = boardRepository.save(SpringBoard.builder()
                 .title("제목2")
                 .content("내용2")
-                .build();
-
-        boardRepository.save(springBoard);
-        boardRepository.save(springBoard2);
+                .build());
 
         // expected
         mockMvc.perform(get("/posts")
@@ -151,7 +148,7 @@ class PostControllerTest {
                 .andExpect(jsonPath("$[0].id").value(springBoard.getId()))
                 .andExpect(jsonPath("$[0].title").value("12345"))
                 .andExpect(jsonPath("$[0].content").value("내용"))
-                .andExpect(jsonPath("$[1].id").value(2))
+                .andExpect(jsonPath("$[1].id").value(springBoard2.getId()))
                 .andExpect(jsonPath("$[1].title").value("제목2"))
                 .andExpect(jsonPath("$[1].content").value("내용2"))
                 .andDo(print());

@@ -75,24 +75,22 @@ class PostServiceTest {
     @DisplayName("글 여려개 조회")
     void getList(){
         //given
-        SpringBoard requestBoard = SpringBoard.builder()
-                .title("제목")
-                .content("내용")
-                .build();
+        boardRepository.saveAll(List.of(
+                SpringBoard.builder()
+                        .title("제목3")
+                        .content("내용3")
+                        .build(),
 
-        SpringBoard requestBoard1 = SpringBoard.builder()
-                .title("제목2")
-                .content("내용2")
-                .build();
+                SpringBoard.builder()
+                        .title("제목2")
+                        .content("내용2")
+                        .build(),
 
-        SpringBoard requestBoard2 = SpringBoard.builder()
-                .title("제목3")
-                .content("내용3")
-                .build();
-
-        boardRepository.save(requestBoard);
-        boardRepository.save(requestBoard1);
-        boardRepository.save(requestBoard2);
+                SpringBoard.builder()
+                        .title("제목")
+                        .content("내용")
+                        .build()
+        ));
 
         //when
         List<PostResponse> list = boardService.getList();

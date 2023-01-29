@@ -31,18 +31,18 @@ public class BoardService {
         SpringBoard springBoard = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
 
-        return new PostResponse(springBoard);
+//        return new PostResponse(springBoard);
 
-//       return PostResponse.builder()
-//                .id(springBoard.getId())
-//                .title(springBoard.getTitle())
-//                .content(springBoard.getContent())
-//                .build();
+       return PostResponse.builder()
+                .id(springBoard.getId())
+                .title(springBoard.getTitle())
+                .content(springBoard.getContent())
+                .build();
     }
 
     public List<PostResponse> getList() {
                 return boardRepository.findAll().stream()
-                .map(springBoard -> new PostResponse(springBoard))
+                .map(PostResponse::new)
                         .collect(Collectors.toList());
 
     }
