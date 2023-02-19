@@ -72,7 +72,7 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("글 여려개 조회")
+    @DisplayName("글 1page 조회")
     void getList(){
         //given
         boardRepository.saveAll(List.of(
