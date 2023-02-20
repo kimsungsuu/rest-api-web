@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -75,22 +77,17 @@ class PostServiceTest {
     @DisplayName("글 1page 조회")
     void getList(){
         //given
-        boardRepository.saveAll(List.of(
-                SpringBoard.builder()
-                        .title("제목3")
-                        .content("내용3")
-                        .build(),
+        List<SpringBoard> requestPosts = IntStream.of(0, 30)
+                        .mapToObj(i -> {
+                            return SpringBoard.builder()
+                                    .title("제목 : " + i)
+                                    .content("의정부 - " + i)
+                                    .build();
+                        })
+                                .collect(Collectors.toList());
 
-                SpringBoard.builder()
-                        .title("제목2")
-                        .content("내용2")
-                        .build(),
 
-                SpringBoard.builder()
-                        .title("제목")
-                        .content("내용")
-                        .build()
-        ));
+        boardRepository.saveAll(requestPosts);
 
         //when
         List<PostResponse> list = boardService.getList();
