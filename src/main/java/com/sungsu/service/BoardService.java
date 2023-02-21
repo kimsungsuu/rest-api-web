@@ -47,7 +47,7 @@ public class BoardService {
      * DB -> 애플리케이션 서버로 전달하는 시간, 트래픽 비용 등이 많이 발생할 수 있다.
      */
 
-    public List<PostResponse> getList() {
+    public List<PostResponse> getList(int page) {
                 return boardRepository.findAll().stream()
                 .map(PostResponse::new)
                         .collect(Collectors.toList());

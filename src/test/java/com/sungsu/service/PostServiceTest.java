@@ -90,7 +90,7 @@ class PostServiceTest {
         boardRepository.saveAll(requestPosts);
 
         //when
-        List<PostResponse> list = boardService.getList();
+        List<PostResponse> list = boardService.getList(1);
 
 
         //then
