@@ -78,15 +78,11 @@ class PostServiceTest {
     void getList(){
         //given
         List<SpringBoard> requestPosts = IntStream.of(0, 30)
-                        .mapToObj(i -> {
-                            return SpringBoard.builder()
+                        .mapToObj(i -> SpringBoard.builder()
                                     .title("제목 : " + i)
                                     .content("의정부 - " + i)
-                                    .build();
-                        })
-                                .collect(Collectors.toList());
-
-
+                                    .build())
+                .collect(Collectors.toList());
         boardRepository.saveAll(requestPosts);
 
         //when
@@ -96,6 +92,4 @@ class PostServiceTest {
         //then
         assertEquals(3, list.size());
     }
-
-
 }
