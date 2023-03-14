@@ -77,7 +77,7 @@ class PostServiceTest {
     @DisplayName("글 1page 조회")
     void getList(){
         //given
-        List<SpringBoard> requestPosts = IntStream.of(0, 30)
+        List<SpringBoard> requestPosts = IntStream.range(0, 30)
                         .mapToObj(i -> SpringBoard.builder()
                                     .title("제목 : " + i)
                                     .content("의정부 - " + i)
@@ -86,7 +86,7 @@ class PostServiceTest {
         boardRepository.saveAll(requestPosts);
 
         //when
-        List<PostResponse> list = boardService.getList(1);
+        List<PostResponse> list = boardService.getList(0);
 
 
         //then
