@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sungsu.domain.SpringBoard;
 import com.sungsu.repository.BoardRepository;
 import com.sungsu.request.PostCreate;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -167,7 +167,7 @@ class PostControllerTest {
     @DisplayName("글 여러개 조회")
     void test5() throws Exception {
         //given
-        List<SpringBoard> requestPosts = IntStream.range(0, 30)
+        List<SpringBoard> requestPosts = IntStream.range(1, 31)
                         .mapToObj(i -> SpringBoard.builder()
                                 .title("제목 : " + i)
                                 .content("내용 : " + i)
@@ -175,21 +175,15 @@ class PostControllerTest {
                                 .collect(Collectors.toList());
         boardRepository.saveAll(requestPosts);
         // expected
-        mockMvc.perform(get("/posts")
+        mockMvc.perform(get("/posts?page=1")
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()", Matchers.is(2)))
-                .andExpect(jsonPath("$[0].id").value(springBoard.getId()))
-                .andExpect(jsonPath("$[0].title").value("12345"))
-                .andExpect(jsonPath("$[0].content").value("내용"))
-                .andExpect(jsonPath("$[1].id").value(springBoard2.getId()))
-                .andExpect(jsonPath("$[1].title").value("제목2"))
-                .andExpect(jsonPath("$[1].content").value("내용2"))
+                .andExpect(jsonPath("$.length()",is(5)))
+                .andExpect(jsonPath("$[0].id").value(30))
+                .andExpect(jsonPath("$[0].title").value("제목 : 30"))
+                .andExpect(jsonPath("$[0].content").value("내용 : 30"))
                 .andDo(print());
 
-        assertEquals(2, boardRepository.findAll().size());
-        assertEquals("12345", boardRepository.findAll().get(0).getTitle());
-        assertEquals("제목2", boardRepository.findAll().get(1).getTitle());
 
     }
 

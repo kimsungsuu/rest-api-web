@@ -5,9 +5,7 @@ import com.sungsu.repository.BoardRepository;
 import com.sungsu.request.PostCreate;
 import com.sungsu.response.PostResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,8 +48,8 @@ public class BoardService {
      * DB -> 애플리케이션 서버로 전달하는 시간, 트래픽 비용 등이 많이 발생할 수 있다.
      */
 
-    public List<PostResponse> getList(int page) {
-        Pageable pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC,"id"));
+    public List<PostResponse> getList(Pageable pageable) {
+
                 return boardRepository.findAll(pageable).stream()
                 .map(PostResponse::new)
                         .collect(Collectors.toList());
