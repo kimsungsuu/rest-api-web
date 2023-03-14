@@ -13,6 +13,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -126,20 +130,50 @@ class PostControllerTest {
                 .andDo(print());
     }
 
+//    @Test
+//    @DisplayName("글 여러개 조회")
+//    void test5() throws Exception {
+//        //given
+//        SpringBoard springBoard = boardRepository.save(SpringBoard.builder()
+//                .title("12345")
+//                .content("내용")
+//                .build());
+//
+//        SpringBoard springBoard2 = boardRepository.save(SpringBoard.builder()
+//                .title("제목2")
+//                .content("내용2")
+//                .build());
+//
+//        // expected
+//        mockMvc.perform(get("/posts")
+//                        .contentType(APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.length()", Matchers.is(2)))
+//                .andExpect(jsonPath("$[0].id").value(springBoard.getId()))
+//                .andExpect(jsonPath("$[0].title").value("12345"))
+//                .andExpect(jsonPath("$[0].content").value("내용"))
+//                .andExpect(jsonPath("$[1].id").value(springBoard2.getId()))
+//                .andExpect(jsonPath("$[1].title").value("제목2"))
+//                .andExpect(jsonPath("$[1].content").value("내용2"))
+//                .andDo(print());
+//
+//        assertEquals(2, boardRepository.findAll().size());
+//        assertEquals("12345", boardRepository.findAll().get(0).getTitle());
+//        assertEquals("제목2", boardRepository.findAll().get(1).getTitle());
+//
+//    }
+
     @Test
     @DisplayName("글 여러개 조회")
     void test5() throws Exception {
         //given
-        SpringBoard springBoard = boardRepository.save(SpringBoard.builder()
-                .title("12345")
-                .content("내용")
-                .build());
-
-        SpringBoard springBoard2 = boardRepository.save(SpringBoard.builder()
-                .title("제목2")
-                .content("내용2")
-                .build());
-
+        List<SpringBoard> requestPosts = IntStream.range(0, 30)
+                        .mapToObj(i -> SpringBoard.builder()
+                                .title("제목 : " + i)
+                                .content("내용 : " + i)
+                                .build())
+                                .collect(Collectors.toList());
+        boardRepository.saveAll(requestPosts);
         // expected
         mockMvc.perform(get("/posts")
                         .contentType(APPLICATION_JSON))

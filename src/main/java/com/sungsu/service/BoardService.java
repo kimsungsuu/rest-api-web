@@ -7,6 +7,7 @@ import com.sungsu.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class BoardService {
      */
 
     public List<PostResponse> getList(int page) {
-        Pageable pageable = PageRequest.of(page, 5);
+        Pageable pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC,"id"));
                 return boardRepository.findAll(pageable).stream()
                 .map(PostResponse::new)
                         .collect(Collectors.toList());

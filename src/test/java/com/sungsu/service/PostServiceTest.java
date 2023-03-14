@@ -90,6 +90,8 @@ class PostServiceTest {
 
 
         //then
-        assertEquals(3, list.size());
+        assertEquals(5, list.size());
+        assertEquals("제목 : 29", list.get(0).getTitle());
+        assertEquals("제목 : 25", list.get(4).getTitle());
     }
 }
