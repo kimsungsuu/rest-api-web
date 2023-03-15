@@ -1,5 +1,6 @@
 package com.sungsu.controller;
 
+import com.sungsu.request.BoardEdit;
 import com.sungsu.request.PostCreate;
 import com.sungsu.response.PostResponse;
 import com.sungsu.service.BoardService;
@@ -42,6 +43,11 @@ public class PostController {
     @GetMapping("/posts")
     public List<PostResponse> getList(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
         return boardService.getList(pageable);
+    }
+
+    @PatchMapping("/posts/{boardId}")
+    public void edit(@PathVariable Integer boardId, @RequestBody @Valid BoardEdit boardEdit){
+        boardService.edit(boardId, boardEdit);
     }
 
 }

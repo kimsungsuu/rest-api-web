@@ -1,12 +1,15 @@
 package com.sungsu.service;
 
+import com.sungsu.domain.BoardEditor;
 import com.sungsu.domain.SpringBoard;
 import com.sungsu.repository.BoardRepository;
+import com.sungsu.request.BoardEdit;
 import com.sungsu.request.PostCreate;
 import com.sungsu.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,6 +57,20 @@ public class BoardService {
                 .map(PostResponse::new)
                         .collect(Collectors.toList());
 
+    }
+
+    @Transactional
+    public void edit(Integer id, BoardEdit boardEdit){
+        SpringBoard springBoard = boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+
+        BoardEditor.BoardEditorBuilder boardEditorBuilder = springBoard.toEditor();
+
+        BoardEditor boardEditor = boardEditorBuilder.title(boardEdit.getTitle())
+                .content(boardEdit.getContent())
+                .build();
+
+        springBoard.edit(boardEditor);
     }
 
 

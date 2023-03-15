@@ -3,6 +3,7 @@ package com.sungsu.service;
 
 import com.sungsu.domain.SpringBoard;
 import com.sungsu.repository.BoardRepository;
+import com.sungsu.request.BoardEdit;
 import com.sungsu.request.PostCreate;
 import com.sungsu.response.PostResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -99,5 +100,32 @@ class PostServiceTest {
         assertEquals(5, list.size());
         assertEquals("제목 : 30", list.get(0).getTitle());
         assertEquals("제목 : 26", list.get(4).getTitle());
+    }
+
+    @Test
+    @DisplayName("글 제목 수정 조회")
+    void getEdit(){
+
+        //given
+       SpringBoard springBoard = SpringBoard.builder()
+                        .title("김성수 원")
+                        .content("의정부 원")
+                        .build();
+
+       boardRepository.save(springBoard);
+
+       BoardEdit boardEdit = BoardEdit.builder()
+                       .title("김성수 투")
+                                       .build();
+
+        //when
+        boardService.edit(springBoard.getId(), boardEdit);
+
+        //then
+        SpringBoard changeBoard = boardRepository.findById(springBoard.getId())
+                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id = "+  springBoard.getId()));
+
+        assertEquals("김성수 투", changeBoard.getTitle());
+
     }
 }

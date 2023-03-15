@@ -3,6 +3,7 @@ package com.sungsu.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sungsu.domain.SpringBoard;
 import com.sungsu.repository.BoardRepository;
+import com.sungsu.request.BoardEdit;
 import com.sungsu.request.PostCreate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,8 +20,7 @@ import java.util.stream.IntStream;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -183,6 +183,29 @@ class PostControllerTest {
                 .andExpect(jsonPath("$[0].id").value(30))
                 .andExpect(jsonPath("$[0].title").value("제목 : 30"))
                 .andExpect(jsonPath("$[0].content").value("내용 : 30"))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("글 수정 테스트")
+    void test6() throws Exception {
+        //given
+      SpringBoard springBoard = SpringBoard.builder()
+                        .title("김성수 원" )
+                        .content("의정부 원")
+                        .build();
+
+      boardRepository.save(springBoard);
+
+        BoardEdit boardEdit = BoardEdit.builder().title("김성수 투")
+                .content("의정부 투")
+                        .build();
+
+        // expected
+        mockMvc.perform(patch("/posts/{boardId}", springBoard.getId())
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(boardEdit)))
+                .andExpect(status().isOk())
                 .andDo(print());
     }
 
