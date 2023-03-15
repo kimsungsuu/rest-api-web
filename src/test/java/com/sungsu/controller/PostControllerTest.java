@@ -174,6 +174,7 @@ class PostControllerTest {
                                 .build())
                                 .collect(Collectors.toList());
         boardRepository.saveAll(requestPosts);
+
         // expected
         mockMvc.perform(get("/posts?page=1")
                         .contentType(APPLICATION_JSON))
@@ -183,8 +184,6 @@ class PostControllerTest {
                 .andExpect(jsonPath("$[0].title").value("제목 : 30"))
                 .andExpect(jsonPath("$[0].content").value("내용 : 30"))
                 .andDo(print());
-
-
     }
 
 }
