@@ -197,7 +197,8 @@ class PostControllerTest {
 
       boardRepository.save(springBoard);
 
-        BoardEdit boardEdit = BoardEdit.builder().title("김성수 투")
+        BoardEdit boardEdit = BoardEdit.builder()
+                .title("김성수 투")
                 .content("의정부 투")
                         .build();
 

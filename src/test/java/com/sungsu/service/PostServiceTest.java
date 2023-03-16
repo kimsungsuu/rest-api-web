@@ -116,7 +116,8 @@ class PostServiceTest {
 
        BoardEdit boardEdit = BoardEdit.builder()
                        .title("김성수 투")
-                                       .build();
+                       .content(null)
+               .build();
 
         //when
         boardService.edit(springBoard.getId(), boardEdit);
@@ -126,6 +127,8 @@ class PostServiceTest {
                 .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id = "+  springBoard.getId()));
 
         assertEquals("김성수 투", changeBoard.getTitle());
+        assertEquals("의정부 원", changeBoard.getContent());
+
 
     }
 }

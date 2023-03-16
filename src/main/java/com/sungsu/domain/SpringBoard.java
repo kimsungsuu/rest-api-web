@@ -30,7 +30,6 @@ public class SpringBoard {
     public void edit(BoardEditor boardEditor) {
         title = boardEditor.getTitle();
         content = boardEditor.getContent();
-
     }
 
     public BoardEditor.BoardEditorBuilder toEditor(){
