@@ -210,4 +210,22 @@ class PostControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    @DisplayName("글 삭제 테스트")
+    void test7() throws Exception {
+        //given
+        SpringBoard springBoard = SpringBoard.builder()
+                .title("김성수 원" )
+                .content("의정부 원")
+                .build();
+
+        boardRepository.save(springBoard);
+
+        // expected
+        mockMvc.perform(delete("/posts/{boardId}", springBoard.getId())
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
 }
