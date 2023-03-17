@@ -74,7 +74,11 @@ public class BoardService {
     }
 
     public void delete(Integer id){
-        boardRepository.delete(id);
+
+        SpringBoard springBoard = boardRepository.findById(id)
+                        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+
+        boardRepository.delete(springBoard);
     }
 
 

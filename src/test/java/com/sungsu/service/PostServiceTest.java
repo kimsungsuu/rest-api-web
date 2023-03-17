@@ -137,16 +137,25 @@ class PostServiceTest {
     void delete(){
         //given
         SpringBoard springBoard = SpringBoard.builder()
-                .title("제목")
-                .content("내용")
-                .build();
+                        .title("제목")
+                                .content("내용")
+                                        .build();
+
+//        HelpTest helpTest = new HelpTest();
+//        SpringBoard board = helpTest.createBoard();
+
+/**
+ * 위 Helptest 클래스는 테스트 시에 반복되는 게시글 생성을 자동화 시키고자 만든 클래스이다.
+ * createBoard는 말 그대로 게시글 생성이란 의미이다.
+ * 이 자동화는 개인적인 프로젝트를 할 때는 유용할 수 있지만 팀 프로젝트에서는 쉽게 이해되지 않는 코드가 될 수도 있다.
+ */
 
         boardRepository.save(springBoard);
 
         //when
-        boardRepository.findById(springBoard.getId());
-
+        boardService.delete(springBoard.getId());
 
         //then
+        assertEquals(0, boardRepository.count());
     }
 }
