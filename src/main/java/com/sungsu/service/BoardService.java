@@ -73,5 +73,9 @@ public class BoardService {
         springBoard.edit(boardEditor);
     }
 
+    public void delete(Integer id){
+        boardRepository.delete(id);
+    }
+
 
 }

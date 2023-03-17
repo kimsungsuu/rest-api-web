@@ -50,4 +50,9 @@ public class PostController {
         boardService.edit(boardId, boardEdit);
     }
 
+    @GetMapping("/posts/{boardId}")
+    public void delete(@PathVariable Integer boardId){
+        boardService.delete(boardId);
+    }
+
 }

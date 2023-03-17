@@ -131,4 +131,22 @@ class PostServiceTest {
 
 
     }
+
+    @Test
+    @DisplayName("게시글 삭제 테스트")
+    void delete(){
+        //given
+        SpringBoard springBoard = SpringBoard.builder()
+                .title("제목")
+                .content("내용")
+                .build();
+
+        boardRepository.save(springBoard);
+
+        //when
+        boardRepository.findById(springBoard.getId());
+
+
+        //then
+    }
 }
