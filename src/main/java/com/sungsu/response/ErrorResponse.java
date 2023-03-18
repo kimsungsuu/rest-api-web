@@ -24,7 +24,7 @@ public class ErrorResponse {
     private final String code;
     private final String message;
 
-    private final Map<String, String> validation = new HashMap<>();
+    private final Map<String, String> validation = new HashMap<>(); // 어떤 field가 error 인지 반환하기 위해 생성.
 
 
     @Builder
@@ -33,7 +33,7 @@ public class ErrorResponse {
         this.message = message;
     }
 
-    public void addValidation(String fieldName, String errorMessage){
+    public void addValidation(String fieldName, String errorMessage){ // 어떤 field가 error 인지 반환하기 위함.
         this.validation.put(fieldName, errorMessage);
     }
 }
