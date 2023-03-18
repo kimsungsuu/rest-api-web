@@ -7,11 +7,15 @@
 
 </br>
 
-## 2. 프로젝트 기능
-> CRUD
-> 데이터 검증(@Valid)
-> rest API 구축
-> MockMvc 테스트(단위 테스트)
+## 2. 프로젝트 상세
+> - CRUD, 페이징
+>   - restful 방식으로 crud, 페이징 API 구현
+> - 데이터 검증(@Valid)
+> - Test
+>   - Controller 테스트와 Servlce layer test 분리
+>   - mockMvc 방식(json)으로 Controller test
+>   - Builder pattern을 사용하여 데이터 생성
+>   - 수정 필드 정보를 갖고 있는 클래스와 실질적인 수정을 수행할 builder 클래스를 분리
 
 * * *
 
@@ -38,13 +42,9 @@
 </br>
 
 ## 5. 기타 백엔드 개발
-> - HTTP API에 대한 이해
->   - Json 데이터 교환, @RequestBody를 이용한 HTTP Body 데이터 사용
 > - entity와 dto(사용자 요청에 응답하는 데이터 필드)의 분리
->   - entity : DB와 데이터를 교환하는 필드, 주로 service 계층에서 사용
->   - dto : Controller에서 http 요청 데이터를 처리할 때 사용
 > - @ExceptionHandler와 @ControllerAdvice를 사용한 에러 처리 구현
->   - BindingResult 객체를 이용한 반복적인 에어 정보 처리를 자동화합니다.
+>   - BindingResult 객체를 이용한 반복적인 에러 정보 처리를 자동화합니다.
 >   - response 클래스를 만들어 code, message 필드와 validation 컬렉션 객체를 생성하고 클라이언트에 데이터가 넘어가도록 설정하고, Test 코드를 수정합니다.
 > - 코드 리팩토링
 >   - 클라이언트와 백엔드 데이터 넘김 방식(id, 또는 전체 데이터 넘겨주기 또는 아무 데이터도 넘기지 않기)
