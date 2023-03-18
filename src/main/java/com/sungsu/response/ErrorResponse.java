@@ -22,7 +22,7 @@ import java.util.Map;
 public class ErrorResponse {
 
     private final String code;
-    private final String message;
+    private final String message;   // 클라이언트 사용자에게 문제가 발생했음을 alert 하기 위할 때 자주 사용
 
     private final Map<String, String> validation = new HashMap<>(); // 어떤 field가 error 인지 반환하기 위해 생성.
 
