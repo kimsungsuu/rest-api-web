@@ -2,6 +2,7 @@ package com.sungsu.service;
 
 import com.sungsu.domain.BoardEditor;
 import com.sungsu.domain.SpringBoard;
+import com.sungsu.exception.PostNotFound;
 import com.sungsu.repository.BoardRepository;
 import com.sungsu.request.BoardEdit;
 import com.sungsu.request.PostCreate;
@@ -33,7 +34,7 @@ public class BoardService {
     public PostResponse get(Integer id){
 //        SpringBoard springBoard = boardRepository.findById(id); //Optional로 반환해줘야 하기 때문에 오류 발생.
         SpringBoard springBoard = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+                .orElseThrow(() -> new PostNotFound());
 
 //        return new PostResponse(springBoard);
 
@@ -62,7 +63,7 @@ public class BoardService {
     @Transactional
     public void edit(Integer id, BoardEdit boardEdit){
         SpringBoard springBoard = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+                .orElseThrow(() -> new PostNotFound());
 
         BoardEditor.BoardEditorBuilder boardEditorBuilder = springBoard.toEditor();
 
@@ -76,7 +77,7 @@ public class BoardService {
     public void delete(Integer id){
 
         SpringBoard springBoard = boardRepository.findById(id)
-                        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+                        .orElseThrow(() -> new PostNotFound());
 
         boardRepository.delete(springBoard);
     }

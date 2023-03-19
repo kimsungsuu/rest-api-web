@@ -16,7 +16,7 @@ import java.util.Map;
  *     }
  * }
  */
-//@RequiredArgsConstructor
+
 @Getter
 //@RequiredArgsConstructor
 public class ErrorResponse {

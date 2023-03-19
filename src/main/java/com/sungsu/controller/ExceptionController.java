@@ -29,23 +29,4 @@ public class ExceptionController {
 
         return response;
     }
-
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    @ResponseBody // ViewResolver 에러 방지
-//    public Map<String, String> inValidRequestHandler(MethodArgumentNotValidException e){
-//
-//        FieldError fieldError = e.getFieldError();
-//
-//        String fieldName = fieldError.getField();
-//        String defaultMessage = fieldError.getDefaultMessage();
-//
-//        Map<String, String> error = new HashMap<>();
-//
-//        error.put(fieldName, defaultMessage);
-//
-//
-//        return error;
-//    }
-
 }

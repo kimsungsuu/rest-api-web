@@ -2,6 +2,7 @@ package com.sungsu.service;
 
 
 import com.sungsu.domain.SpringBoard;
+import com.sungsu.exception.PostNotFound;
 import com.sungsu.repository.BoardRepository;
 import com.sungsu.request.BoardEdit;
 import com.sungsu.request.PostCreate;
@@ -19,8 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @SpringBootTest
@@ -157,5 +157,44 @@ class PostServiceTest {
 
         //then
         assertEquals(0, boardRepository.count());
+    }
+
+    @Test
+    @DisplayName("글 조회 예외처리")
+    void getException(){
+        //given
+        SpringBoard board = SpringBoard.builder()
+                .title("제목")
+                .content("내용")
+                .build();
+
+        boardRepository.save(board);
+
+        //expected
+        assertThrows(PostNotFound.class, ()
+                -> boardService.get(board.getId() + 1));
+    }
+
+    @Test
+    @DisplayName("글 수정 조회 예외처리")
+    void getEditException(){
+        //given
+        SpringBoard board = SpringBoard.builder()
+                .title("제목")
+                .content("내용")
+                .build();
+
+        boardRepository.save(board);
+
+        BoardEdit boardEdit = BoardEdit.builder()
+                .title("제목 2")
+                .content("내용 2")
+                .build();
+
+        boardService.edit(board.getId(), boardEdit);
+
+        //expected
+        assertThrows(PostNotFound.class, ()
+                -> boardService.get(board.getId() + 1));
     }
 }
