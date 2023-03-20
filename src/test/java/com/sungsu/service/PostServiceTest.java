@@ -160,7 +160,7 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("글 조회 예외처리")
+    @DisplayName("글 조회 - 존재하지 않는 글 예외 처리")
     void getException(){
         //given
         SpringBoard board = SpringBoard.builder()
@@ -176,7 +176,7 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("글 수정 조회 예외처리")
+    @DisplayName("글 수정 조회 - 존재하지 않는 글 예외 처리")
     void getEditException(){
         //given
         SpringBoard board = SpringBoard.builder()
@@ -191,10 +191,25 @@ class PostServiceTest {
                 .content("내용 2")
                 .build();
 
-        boardService.edit(board.getId(), boardEdit);
-
         //expected
         assertThrows(PostNotFound.class, ()
-                -> boardService.get(board.getId() + 1));
+                -> boardService.edit(board.getId() + 1, boardEdit));
+    }
+
+    @Test
+    @DisplayName("게시글 삭제 - 존재하지 않는 글 예외처리")
+    void deleteException(){
+        //given
+        SpringBoard springBoard = SpringBoard.builder()
+                .title("제목")
+                .content("내용")
+                .build();
+
+        boardRepository.save(springBoard);
+
+        //expected
+        assertThrows(PostNotFound.class, () -> {
+            boardService.delete(springBoard.getId() + 1);
+        });
     }
 }
