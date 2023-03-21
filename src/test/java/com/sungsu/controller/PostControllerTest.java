@@ -228,4 +228,31 @@ class PostControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    @DisplayName("존재하지 않는 글 조회")
+    void test8() throws Exception{
+        mockMvc.perform(delete("/posts/{boardId}", 1)
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 글 수정")
+    void test9() throws Exception{
+
+
+        BoardEdit boardEdit = BoardEdit.builder()
+                .title("김성수 투")
+                .content("의정부 투")
+                .build();
+
+
+        mockMvc.perform(patch("/posts/{boardId}", 1)
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(boardEdit)))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
 }
