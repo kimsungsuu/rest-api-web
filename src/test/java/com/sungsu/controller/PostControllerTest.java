@@ -62,7 +62,7 @@ class PostControllerTest {
                 .andDo(print());
     }
     @Test
-    @DisplayName("/posts title 값은 필수")
+    @DisplayName("글 작성 요청 시 title 값은 필수")
     void test2() throws Exception {
 
     //given
@@ -84,7 +84,7 @@ class PostControllerTest {
     }
 
     @Test
-    @DisplayName("/posts 결과가 DB에 저장되는지 확인")
+    @DisplayName("글 작성 요청 시 결과가 DB에 저장되는지 확인")
     void test3() throws Exception{
 
         //given
