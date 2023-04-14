@@ -278,6 +278,8 @@ class PostServiceTest {
 1. 위 코드는 Service 테스트에서 게시글 작성 테스트 예시
 2. builder 패턴을 적용하여 데이터 생성
 3. service에 생성해 놓은 게시글 작성 api(write)를 가져와 테스트 진행
+    
+    </details>
 
 * * *
 
@@ -294,16 +296,7 @@ class PostServiceTest {
 
 </br>
 
-## 4. 트러블 슈팅/ 문제 개선
-> - BindingResult 클래스를 사용한 에러 처리 시 반복 작업 가능성 우려
->   - @ControllerAdvice 어노테이션을 사용하여 해당 필드 에러 처리 자동화
->   - [코드확인](https://github.com/ksungsu/rest-api-web/blob/ea8399d1dc17394b6ec28c1483d7e434a5db43a2/src/main/java/com/sungsu/controller/ExceptionController.java#L16)
-
-* * *
-
-</br>
-
-## 5. 기타 백엔드 개발
+## 4. 기타 백엔드 개발
 > - entity와 dto(사용자 요청에 응답하는 데이터 필드)의 분리
 > - @ExceptionHandler와 @ControllerAdvice를 사용한 에러 처리 구현
 >   - BindingResult 객체를 이용한 반복적인 에러 정보 처리를 자동화합니다.
