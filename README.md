@@ -10,7 +10,6 @@
 ## 2. 프로젝트 상세
 > - restful 하게 crud, 페이징 API 구현
 > - builder 패턴을 사용한 게시글 등록 </br>
-> - 게시글 등록 클래스와 게시글 수정 클래스를 분리하여 따로 관리.
 > - Java validation을 활용한 데이터 검증
 > - ControllerAdvice를 이용한 예외처리 자동화
 > - Test
@@ -95,52 +94,7 @@ public class PostController {
 
 - 게시글 생성 메서드에서 builder 패턴 사용
 - 매개변수 초기화 과정에서 에러 발생 가능성을 낮춰주고, 가독성을 높여줌.
-
-```java
-@Setter
-@Getter
-@ToString
-public class PostCreate {
-
-    @NotBlank(message = "타이틀을 입력해주세요")
-    private String title;
-
-    @NotBlank(message = "컨텐츠를 입력해주세요")
-    private String content;
-
-    @Builder
-    public PostCreate(String title, String content){
-        this.title = title;
-        this.content = content;
-    }
-
-}
-```
-- 위 코드는 게시글 등록 클래스(PostCreate)
     
-```java
-@Setter
-@Getter
-@ToString
-public class PostEdit {
-
-    @NotBlank(message = "타이틀을 입력해주세요")
-    private String title;
-
-    @NotBlank(message = "컨텐츠를 입력해주세요")
-    private String content;
-
-    @Builder
-    public PostCreate(String title, String content){
-        this.title = title;
-        this.content = content;
-    }
-
-}
-```    
-- 위 코드는 게시글 수정 클래스(PostEdit)
-- 둘을 분리하는 이유
-    - 현재는 게시글 등록과 게시글 수정의 속성이 같지만, 나중에 수정해야할 속성 예를 들어 패스워드나 이메일 등이 추가 되었을 때 두 클래스가 분리되어 있지 않다면 유지보수에 어려움 
 <hr/>    
     
 </details>
