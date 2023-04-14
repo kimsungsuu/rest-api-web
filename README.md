@@ -10,7 +10,8 @@
 ## 2. 프로젝트 상세
 > - CRUD, 페이징
 >   - restful 방식으로 crud, 페이징 API 구현
-> - 데이터 검증(@Valid)
+> - Java validation을 활용한 데이터 검증
+> - ControllerAdvice를 이용한 예외처리 자동화
 > - Test
 >   - Controller 테스트와 Servlce layer test 분리
 >   - mockMvc 방식(json)으로 Controller test
