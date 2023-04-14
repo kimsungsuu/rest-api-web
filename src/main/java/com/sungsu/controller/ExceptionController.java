@@ -34,7 +34,7 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(PostNotFound.class)
     @ResponseBody
-    public ErrorResponse postNotFoun(PostNotFound e){
+    public ErrorResponse postNotFound(PostNotFound e){
         ErrorResponse response = ErrorResponse.builder()
                 .code("404")
                 .message("존재하지 않는 글입니다.")
@@ -42,6 +42,4 @@ public class ExceptionController {
 
         return response;
     }
-
-
 }
